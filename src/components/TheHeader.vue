@@ -6,8 +6,8 @@
       </router-link>
       <router-link class="d-block" :to="{ name: 'PageCart' }">
         <i class="the-header__cart-icon bi bi-bag text-dark">
-          <small v-show="getCartList.length" class="the-header__cart-bage position-absolute translate-middle badge rounded-pill bg-light text-dark ms-2">
-              {{ getCartList.length }}
+          <small v-show="cartListLength" class="the-header__cart-bage position-absolute translate-middle badge rounded-pill bg-light text-dark ms-2">
+              {{ cartListLength }}
           </small>
         </i>
       </router-link>
@@ -16,13 +16,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { CartСhange } from '../plugins/cart'
 export default {
   name: 'TheHeader',
   computed: {
-    ...mapGetters([
-      'getCartList'
-    ])
+    cartListLength: CartСhange.getCartLenght
   }
 }
 </script>

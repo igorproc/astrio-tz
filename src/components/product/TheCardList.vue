@@ -15,14 +15,14 @@
 <script>
 import TheCard from "./TheCard.vue";
 export default {
-    name: "TheCardList",
-    props: {
-      productList: {
-        required: true,
-        type: Array
-      }
-    },
-    components: { TheCard }
+  name: "TheCardList",
+  props: {
+    productList: {
+      required: true,
+      type: Array
+    }
+  },
+  components: { TheCard }
 }
 </script>
 

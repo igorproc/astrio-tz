@@ -19,6 +19,15 @@ export default createStore({
     },
     setCartList (state, payload) {
       state.cartList.push(payload)
+    },
+    upCartListCountById (state, id) {
+      state.cartList[id].count += 1
+    },
+    downCartListCountById (state, id) {
+      state.cartList[id].count -= 1
+    },
+    eraseProductFromCartById (state, id) {
+      state.cartList.splice(id, 1)
     }
   },
   actions: {
@@ -27,6 +36,15 @@ export default createStore({
     },
     setCartList ({ commit }, payload) {
       commit('setCartList', payload)
+    },
+    upCartListCountById ({ commit }) {
+      commit('upCartListCountById')
+    },
+    downCartListCountById ({ commit }) {
+      commit('downCartListCountById')
+    },
+    eraseProductFromCartById ({ commit }) {
+      commit('eraseProductFromCartById')
     }
   }
 })

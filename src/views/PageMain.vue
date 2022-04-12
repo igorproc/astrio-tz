@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TheCardList from "../components/product/TheCardList.vue";
+import TheCardList from '../components/product/TheCardList.vue'
 import { Api } from '../api/api';
 export default {
     name: "PageMain",
@@ -16,11 +16,15 @@ export default {
       }
     },
     mounted () {
-      this.setProductList()
+      this.setProductList(),
+      this.getQuerys()
     },
     methods: {
       async setProductList () {
         this.productList = await Api.getProductList()
+      },
+      getQuerys () {
+        console.log(this.$route.query.brand_id)
       }
     }
 }

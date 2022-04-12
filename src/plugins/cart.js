@@ -1,9 +1,40 @@
 import store from "../store/index"
 
 export const CartСhange = {
-  cartAdd (product = {}) {
-    store.commit('setCartList', product)
-    console.log(store.state)
-    localStorage.setItem(product.id, product)
+  getter () {
+    return store.getters.getCartList 
+  },
+  filter (product = {}) {
+    return this.getter().findIndex(el => el.product.id === product.id)
+  },
+  cartAdd (product = {}) { 
+    if (this.filter(product) === -1) store.commit('setCartList', { product, count: 1 })
+    else store.commit('upCartListCountById', this.filter(product))
+  },
+  getCartLenght () {
+    let total = 0
+    store.getters.getCartList.forEach(element => {
+      total += element.count
+    })
+    return total
+  },
+  getSubtotalPrice (cartList = []) {
+    let total = 0
+    cartList.forEach(el => {
+      total += el.count * el.product.regular_price.value
+    })
+    return total.toFixed(2)
+  },
+  quantityAdd (product = {}) {
+    store.commit('upCartListCountById', this.filter(product))
+  },
+  quantityDown (product = {}) {
+    this.getter()[this.filter(product)].count > 1 ? 
+      store.commit('downCartListCountById', this.filter(product))
+      :
+      store.commit('eraseProductFromCartById', this.filter(product))
+  },
+  eraseProduct (product = {}) {
+    store.commit('eraseProductFromCartById', this.filter(product))
   }
 }
