@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { CartСhange } from '../../plugins/cart'
+import { CartApi } from '../../plugins/cart'
 import { Formated } from '../../plugins/formated'
 export default {
   name: 'TheCart',
@@ -39,13 +39,13 @@ export default {
       return Formated.formatedAmount(this.cartSection.product.regular_price.currency, amount)
     },
     upQuantity () {
-      CartСhange.quantityAdd(this.cartSection.product)
+      CartApi.quantityAdd(this.cartSection.product)
     },
     downQuantity () {
-      CartСhange.quantityDown(this.cartSection.product)
+      CartApi.quantityDown(this.cartSection.product)
     },
     erase () {
-      CartСhange.eraseProduct(this.cartSection.product)
+      CartApi.eraseProduct(this.cartSection.product)
     }
   }
 }

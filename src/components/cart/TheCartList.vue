@@ -23,7 +23,7 @@
 
 <script>
 import { Formated } from '@/plugins/formated'
-import { CartСhange } from '../../plugins/cart'
+import { CartApi } from '../../plugins/cart'
 import TheCart from './TheCart.vue'
 export default {
   name: 'TheCartList',
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getSubtotal () {
-      const subtotal = CartСhange.getSubtotalPrice(this.cartList)
+      const subtotal = CartApi.getSubtotalPrice(this.cartList)
       return Formated.formatedAmount('USD',subtotal)
     }
   },

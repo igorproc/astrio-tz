@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import { CartСhange } from '../plugins/cart'
+import { CartApi } from '../plugins/cart'
 export default {
   name: 'TheHeader',
   computed: {
-    cartListLength: CartСhange.getCartLenght
+    cartListLength: CartApi.getCartLenght
   }
 }
 </script>

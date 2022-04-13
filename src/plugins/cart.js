@@ -1,16 +1,6 @@
 import store from "../store/index"
-
-export const CartСhange = {
-  getter () {
-    return store.getters.getCartList 
-  },
-  filter (product = {}) {
-    return this.getter().findIndex(el => el.product.id === product.id)
-  },
-  cartAdd (product = {}) { 
-    if (this.filter(product) === -1) store.commit('setCartList', { product, count: 1 })
-    else store.commit('upCartListCountById', this.filter(product))
-  },
+ 
+export const CartApi = {
   getCartLenght () {
     let total = 0
     store.getters.getCartList.forEach(element => {
@@ -25,11 +15,21 @@ export const CartСhange = {
     })
     return total.toFixed(2)
   },
+  getter () {
+    return store.getters.getCartList 
+  },
+  filter (product = {}) {
+    return this.getter().findIndex(el => el.product.id === product.id)
+  },
+  cartAdd (product = {}) { 
+    if (this.filter(product) === -1) store.commit('setCartList', { product, count: 1 })
+    else store.commit('upCartListCountById', this.filter(product))
+  },
   quantityAdd (product = {}) {
     store.commit('upCartListCountById', this.filter(product))
   },
   quantityDown (product = {}) {
-    this.getter()[this.filter(product)].count > 1 ? 
+    this.getter()[this.filter(product)].count > 1 ?
       store.commit('downCartListCountById', this.filter(product))
       :
       store.commit('eraseProductFromCartById', this.filter(product))

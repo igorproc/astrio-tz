@@ -6,7 +6,7 @@
       <p class="card-text">{{ brandTitle }}</p>
       <div class="the-card__info d-flex justify-content-between">
         <span>{{ formatedPrice() }}</span>
-        <i :onclick="addToCart" class="the-card__info-add bi bi-bag-plus-fill" />
+        <i @click="addToCart" class="the-card__info-add bi bi-bag-plus-fill" />
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
 <script>
 import { Formated } from '../../plugins/formated'
 import { Api } from '../../api/api'
-import { CartСhange } from '../../plugins/cart'
+import { CartApi } from '../../plugins/cart'
 export default {
   name: 'TheCard',
   props: {
@@ -42,7 +42,7 @@ export default {
       return Formated.formatedPrice(this.product.regular_price)
     },
     addToCart () {
-      return CartСhange.cartAdd(this.product)
+      return CartApi.cartAdd(this.product)
     }
   }
 }

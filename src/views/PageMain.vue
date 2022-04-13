@@ -1,12 +1,12 @@
 <template>
-  <section class="page-main">
+  <section class="page-main" :brandId="brandId">
     <TheCardList :productList="productList" />
   </section>
 </template>
 
 <script>
 import TheCardList from '../components/product/TheCardList.vue'
-import { Api } from '../api/api';
+import { Api } from '../api/api'
 export default {
     name: "PageMain",
     components: { TheCardList },
@@ -15,16 +15,18 @@ export default {
         productList: []
       }
     },
-    mounted () {
-      this.setProductList(),
-      this.getQuerys()
+    props: {
+      brandId: {
+        required: false,
+        type: String
+      }
     },
+    mounted () { this.setProductList() },
+    updated () { this.setProductList() },
     methods: {
       async setProductList () {
-        this.productList = await Api.getProductList()
-      },
-      getQuerys () {
-        console.log(this.$route.query.brand_id)
+        if (!this.brandId) this.productList = await Api.getProductList()
+        else this.productList = await Api.getProductById(this.brandId)
       }
     }
 }

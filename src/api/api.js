@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export const Api = {
   async getBrandsList () {
-    return await axios.get('https://raw.githubusercontent.com/fe-side/vue-test/master/assets/brands.json')
+    const { data } = await axios.get('https://raw.githubusercontent.com/fe-side/vue-test/master/assets/brands.json')
+    return data
   },
 
   async getProductList () {
@@ -11,7 +12,12 @@ export const Api = {
   },
 
   async getBrandById (id) {
-    const { data } = await this.getBrandsList()
+    const data = await this.getBrandsList()
     return data.find(brand => brand.id === id)
+  },
+
+  async getProductById (id = 0) {
+    const data = await this.getProductList()
+    return data.filter(product => product.id === parseInt(id))
   }
 }

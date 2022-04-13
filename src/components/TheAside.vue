@@ -25,10 +25,8 @@ export default {
     })
   },
   mounted () {
-    Api.getBrandsList().then(({ data }) => {
-      if (Array.isArray(data)) {
-        this.setBrands(data)
-      }
+    Api.getBrandsList().then((data) => { 
+      if(typeof(data) === 'object') return this.setBrands(data)
     })
   },
   methods: {
