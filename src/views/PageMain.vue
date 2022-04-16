@@ -21,7 +21,7 @@ export default {
         type: String
       }
     },
-    mounted () { this.setProductList() },
+    created () { this.setProductList() },
     updated () { this.setProductList() },
     methods: {
       async setProductList () {

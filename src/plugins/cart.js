@@ -16,7 +16,7 @@ export const CartApi = {
     return total.toFixed(2)
   },
   getter () {
-    return store.getters.getCartList 
+    return store.getters.getCartList
   },
   filter (product = {}) {
     return this.getter().findIndex(el => el.product.id === product.id)
@@ -29,10 +29,7 @@ export const CartApi = {
     store.commit('upCartListCountById', this.filter(product))
   },
   quantityDown (product = {}) {
-    this.getter()[this.filter(product)].count > 1 ?
-      store.commit('downCartListCountById', this.filter(product))
-      :
-      store.commit('eraseProductFromCartById', this.filter(product))
+    store.commit('downCartListCountById', this.filter(product))
   },
   eraseProduct (product = {}) {
     store.commit('eraseProductFromCartById', this.filter(product))

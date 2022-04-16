@@ -13,7 +13,7 @@
     </div>
     <div v-else class="the-cart-list__checkout d-flex flex-column align-items-end">
       <div class="the-cart-list__checkout-amount">
-        <span class="fw-bold">Subtotal:</span>
+        <span class="fw-bold">Subtotal: </span>
         <span class="fw-bold">{{ getSubtotal() }}</span>
       </div>
       <button type="button" class="btn btn-primary btn-lg px-5">Checkout</button>

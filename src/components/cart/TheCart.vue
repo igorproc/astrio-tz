@@ -6,8 +6,21 @@
     <div class="the-cart__quantity-menu d-flex flex-column w-50">
       <span class="the-cart__quantity-menu-count ">{{ cartSection.count }}</span>
       <div class="btn-group" role="group">
-        <button @click="upQuantity()" type="button" class="btn btn-secondary">+</button>
-        <button @click="downQuantity()" type="button" class="btn btn-secondary">-</button>
+        <button
+          @click="upQuantity()"
+          type="button"
+          class="btn btn-secondary"
+        >
+          +
+        </button>
+        <button
+          @click="downPosibly ? downQuantity() : ''"
+          type="button"
+          class="btn btn-secondary"
+          :class="downPosibly ? 'btn_active' : 'btn_non-active'"
+        >
+          -
+        </button>
       </div>
     </div>
     <span class="">{{ amountPrice() }}</span>
@@ -20,15 +33,24 @@ import { CartApi } from '../../plugins/cart'
 import { Formated } from '../../plugins/formated'
 export default {
   name: 'TheCart',
+  data () {
+    return {
+      downPosibly: true
+    }
+  },
   props: {
     cartSection: {
       required: true,
       type: Object
     }
   },
+  updated () {
+    this.canDownQuantity()
+  },
   mounted () {
     this.formatedPrice(),
-    this.amountPrice()
+    this.amountPrice(),
+    this.canDownQuantity()
   },
   methods: {
     formatedPrice () {
@@ -46,6 +68,10 @@ export default {
     },
     erase () {
       CartApi.eraseProduct(this.cartSection.product)
+    },
+    canDownQuantity () {
+      if (this.cartSection.count <= 0) this.downPosibly = false
+      else this.downPosibly = true
     }
   }
 }
@@ -67,4 +93,10 @@ export default {
 .the-cart__erase {
   cursor: pointer;
 }
+.btn_active {
+  opacity: 1;
+  }
+.btn_non-active {
+  opacity: 0.5;
+  }
 </style>
