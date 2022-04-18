@@ -44,21 +44,20 @@ export default {
       type: Object
     }
   },
-  updated () {
-    this.canDownQuantity()
-  },
   mounted () {
     this.formatedPrice(),
-    this.amountPrice(),
-    this.canDownQuantity()
+    this.amountPrice()
   },
   methods: {
     formatedPrice () {
       return Formated.formatedPrice(this.cartSection.product.regular_price)
     },
     amountPrice () {
+      if (this.cartSection.count <= 0) this.downPosibly = false
+      else this.downPosibly = true
+
       const amount = this.cartSection.product.regular_price.value * this.cartSection.count
-      return Formated.formatedAmount(this.cartSection.product.regular_price.currency, amount)
+      return Formated.formatedPrice({ currency: this.cartSection.product.regular_price.currency, value: amount })
     },
     upQuantity () {
       CartApi.quantityAdd(this.cartSection.product)
@@ -68,10 +67,6 @@ export default {
     },
     erase () {
       CartApi.eraseProduct(this.cartSection.product)
-    },
-    canDownQuantity () {
-      if (this.cartSection.count <= 0) this.downPosibly = false
-      else this.downPosibly = true
     }
   }
 }

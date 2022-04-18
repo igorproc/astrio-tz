@@ -36,7 +36,7 @@ export default {
   methods: {
     getSubtotal () {
       const subtotal = CartApi.getSubtotalPrice(this.cartList)
-      return Formated.formatedAmount('USD',subtotal)
+      return Formated.formatedPrice({ currency: 'USD', value: subtotal })
     }
   },
   components: { TheCart }

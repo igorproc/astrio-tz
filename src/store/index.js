@@ -17,7 +17,7 @@ export default createStore({
     setBrands (state, payload) {
       state.brands = payload
     },
-    setCartList (state, payload) {
+    updateCartList (state, payload) {
       state.cartList.push(payload)
     },
     upCartListCountById (state, id) {
@@ -34,14 +34,14 @@ export default createStore({
     setBrands ({ commit }, payload) {
       commit('setBrands', payload)
     },
-    setCartList ({ commit }, payload) {
-      commit('setCartList', payload)
+    updateCartList ({ commit }, payload) {
+      commit('updateCartList', payload)
     },
-    upCartListCountById ({ commit }) {
-      commit('upCartListCountById')
+    upCartListCountById ({ commit }, id) {
+      commit('upCartListCountById', id)
     },
-    downCartListCountById ({ commit }) {
-      commit('downCartListCountById')
+    downCartListCountById ({ commit }, id) {
+      commit('downCartListCountById', id)
     },
     eraseProductFromCartById ({ commit }) {
       commit('eraseProductFromCartById')

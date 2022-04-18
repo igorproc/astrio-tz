@@ -1,6 +1,6 @@
 <template>
   <section class="page-main" :brandId="brandId">
-    <TheCardList :productList="productList" />
+    <TheCardList :productList="brandId ? setFilterProductList(brandId) : productList" />
   </section>
 </template>
 
@@ -21,12 +21,13 @@ export default {
         type: String
       }
     },
-    created () { this.setProductList() },
-    updated () { this.setProductList() },
+    mounted () { this.setProductList() },
     methods: {
       async setProductList () {
-        if (!this.brandId) this.productList = await Api.getProductList()
-        else this.productList = await Api.getProductById(this.brandId)
+        this.productList = await Api.getProductList()
+      },
+      setFilterProductList (brandId) {
+        return this.productList.filter(el => el.id === parseInt(brandId))
       }
     }
 }

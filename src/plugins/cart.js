@@ -1,5 +1,5 @@
-import store from "../store/index"
- 
+import store from '../store/index'
+
 export const CartApi = {
   getCartLenght () {
     let total = 0
@@ -8,22 +8,19 @@ export const CartApi = {
     })
     return total
   },
-  getSubtotalPrice (cartList = []) {
+  getSubtotalPrice () {
     let total = 0
-    cartList.forEach(el => {
+    store.getters.getCartList.forEach(el => {
       total += el.count * el.product.regular_price.value
     })
     return total.toFixed(2)
   },
-  getter () {
-    return store.getters.getCartList
-  },
   filter (product = {}) {
-    return this.getter().findIndex(el => el.product.id === product.id)
+    return store.getters.getCartList.findIndex(el => el.product.id === product.id)
   },
-  cartAdd (product = {}) { 
-    if (this.filter(product) === -1) store.commit('setCartList', { product, count: 1 })
-    else store.commit('upCartListCountById', this.filter(product))
+  cartAdd (product = {}) {
+    if (this.filter(product) === -1) store.dispatch('updateCartList', { product, count: 1 })
+    else store.dispatch('upCartListCountById', this.filter(product))
   },
   quantityAdd (product = {}) {
     store.commit('upCartListCountById', this.filter(product))
@@ -32,6 +29,6 @@ export const CartApi = {
     store.commit('downCartListCountById', this.filter(product))
   },
   eraseProduct (product = {}) {
-    store.commit('eraseProductFromCartById', this.filter(product))
+    store.dispatch('eraseProductFromCartById', this.filter(product))
   }
 }

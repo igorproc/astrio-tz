@@ -14,10 +14,5 @@ export const Api = {
   async getBrandById (id) {
     const data = await this.getBrandsList()
     return data.find(brand => brand.id === id)
-  },
-
-  async getProductById (id = 0) {
-    const data = await this.getProductList()
-    return data.filter(product => product.id === parseInt(id))
   }
 }
