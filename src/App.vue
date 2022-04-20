@@ -10,9 +10,14 @@
 import TheHeader from './components/TheHeader.vue'
 import TheAside from './components/TheAside.vue'
 import TheWrapper from './components/TheWrapper.vue'
+import { useStore } from 'vuex'
 export default {
     name: 'App',
-    components: { TheHeader, TheAside, TheWrapper }
+    components: { TheHeader, TheAside, TheWrapper },
+    setup () {
+      const store = useStore()
+      store.dispatch('initCartList')
+    }
 }
 </script>
 

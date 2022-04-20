@@ -14,7 +14,8 @@
           +
         </button>
         <button
-          @click="downPosibly ? downQuantity() : ''"
+          @click="downQuantity()"
+          :disabled="!downPosibly"
           type="button"
           class="btn btn-secondary"
           :class="downPosibly ? 'btn_active' : 'btn_non-active'"
@@ -53,7 +54,7 @@ export default {
       return Formated.formatedPrice(this.cartSection.product.regular_price)
     },
     amountPrice () {
-      if (this.cartSection.count <= 0) this.downPosibly = false
+      if (this.cartSection.count <= 1) this.downPosibly = false
       else this.downPosibly = true
 
       const amount = this.cartSection.product.regular_price.value * this.cartSection.count

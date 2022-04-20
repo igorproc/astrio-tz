@@ -1,5 +1,17 @@
 import store from '../store/index'
 
+export const CartApiLocalStorage = {
+  key: 'cart',
+  set (data) {
+    const json = JSON.stringify(data)
+    localStorage.setItem(this.key, json)
+  },
+  get () {
+    const json = localStorage.getItem(this.key)
+    return json ? JSON.parse(json) : []
+  }
+}
+
 export const CartApi = {
   getCartLenght () {
     let total = 0
@@ -23,10 +35,10 @@ export const CartApi = {
     else store.dispatch('upCartListCountById', this.filter(product))
   },
   quantityAdd (product = {}) {
-    store.commit('upCartListCountById', this.filter(product))
+    store.dispatch('upCartListCountById', this.filter(product))
   },
   quantityDown (product = {}) {
-    store.commit('downCartListCountById', this.filter(product))
+    store.dispatch('downCartListCountById', this.filter(product))
   },
   eraseProduct (product = {}) {
     store.dispatch('eraseProductFromCartById', this.filter(product))

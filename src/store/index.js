@@ -1,3 +1,4 @@
+import { CartApiLocalStorage } from '@/plugins/cart'
 import { createStore } from 'vuex'
 
 export default createStore({
@@ -14,23 +15,33 @@ export default createStore({
     }
   },
   mutations: {
+    initCartList (state) {
+      state.cartList = CartApiLocalStorage.get()
+    },
     setBrands (state, payload) {
       state.brands = payload
     },
     updateCartList (state, payload) {
       state.cartList.push(payload)
+      CartApiLocalStorage.set(state.cartList)
     },
     upCartListCountById (state, id) {
       state.cartList[id].count += 1
+      CartApiLocalStorage.set(state.cartList)
     },
     downCartListCountById (state, id) {
       state.cartList[id].count -= 1
+      CartApiLocalStorage.set(state.cartList)
     },
     eraseProductFromCartById (state, id) {
       state.cartList.splice(id, 1)
+      CartApiLocalStorage.set(state.cartList)
     }
   },
   actions: {
+    initCartList ({ commit }) {
+      commit('initCartList')
+    },
     setBrands ({ commit }, payload) {
       commit('setBrands', payload)
     },
